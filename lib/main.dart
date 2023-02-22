@@ -90,24 +90,16 @@ class _HomeState extends State<Home> {
                 initialUrlRequest: URLRequest(url: Uri.parse(url)),
                 initialOptions: InAppWebViewGroupOptions(
                   crossPlatform: InAppWebViewOptions(
-                    javaScriptEnabled: true,
-                    allowFileAccessFromFileURLs: true,
-                    useShouldOverrideUrlLoading: true,
-                    userAgent: Platform.isIOS
-                        ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15' +
-                            ' (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1'
-                        : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) ' +
-                            'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36',
-                  ),
+                      javaScriptEnabled: true,
+                      allowFileAccessFromFileURLs: true,
+                      useOnDownloadStart: true,
+                      // useShouldOverrideUrlLoading: true,
+                      userAgent: "Chrome/110.0.5481.65"),
                   android: AndroidInAppWebViewOptions(
                     allowContentAccess: true,
                     thirdPartyCookiesEnabled: true,
                     allowFileAccess: true,
                     useHybridComposition: true,
-                  ),
-                  ios: IOSInAppWebViewOptions(
-                    applePayAPIEnabled: true,
-                    allowsInlineMediaPlayback: true,
                   ),
                 ),
                 onWebViewCreated: (controller) {
@@ -154,6 +146,7 @@ class _HomeState extends State<Home> {
                 },
                 onDownloadStartRequest:
                     (controller, downloadStartRequest) async {
+                  print(" start  ");
                   await downloadFile(downloadStartRequest.url.toString(),
                       downloadStartRequest.suggestedFilename);
                 },
